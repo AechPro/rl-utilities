@@ -9,8 +9,8 @@ A collection of utilities for my reinforcement learning projects, providing logg
 - **Handlers**: Pluggable output handlers for different logging destinations (print, wandb, etc.). Allows for user-defined categories to format output.
 - **CompositeLogger**: Allows composition of multiple handlers to e.g. both print to console and log to wandb.
 
-### **Statistical Utilities**
-- **WelfordRunningStat**: Online statistics computation supporting various data types (tensors, arrays, lists)
+### **Miscellaneous Utilities**
+- **WelfordRunningStat**: Online statistics computation for data. Instantiate with a shape and backend ("torch", "numpy", or "python").
 - **RollingTensor**: Maintains a rolling stack of tensors with a fixed shape. Useful for things like frame stacking in Atari.
 
 ### **Neural Network Components**
@@ -102,42 +102,33 @@ quantiles = quantile_head(torch.randn(32, 64))
 
 ```python
 from rl_utilities import WelfordRunningStat
+import torch
+import numpy as np
 
-stat = WelfordRunningStat()
+# For PyTorch tensors
+stat_torch = WelfordRunningStat(shape=(3,), backend="torch")
+stat_torch.update(torch.tensor([1.0, 2.0, 3.0]))
+stat_torch.update(torch.tensor([4.0, 5.0, 6.0]))
+print(f"Torch Mean: {stat_torch.mean}, Std: {stat_torch.std}")
 
-# Works with various data types
-stat.update([1, 2, 3])
-stat.update(torch.tensor([4, 5, 6]))
+# For numpy arrays
+stat_np = WelfordRunningStat(shape=(3,), backend="numpy")
+stat_np.update(np.array([1.0, 2.0, 3.0]))
+stat_np.update(np.array([4.0, 5.0, 6.0]))
+print(f"Numpy Mean: {stat_np.mean}, Std: {stat_np.std}")
 
-print(f"Mean: {stat.mean}, Std: {stat.std}")
+# For python lists
+stat_python = WelfordRunningStat(shape=(3,), backend="python")
+stat_python.update([1.0, 2.0, 3.0])
+stat_python.update([4.0, 5.0, 6.0])
+print(f"Python Mean: {stat_python.mean}, Std: {stat_python.std}")
+
+# For python scalars
+stat_scalar = WelfordRunningStat(shape=(), backend="python")
+stat_scalar.update(1.0)
+stat_scalar.update(2.0)
+print(f"Scalar Mean: {stat_scalar.mean}, Std: {stat_scalar.std}")
 ```
-
-## API Reference
-
-### Logging
-
-#### RLDataLogger
-- `log(**kwargs)`: Log key-value pairs
-- `log_stats(**kwargs)`: Log values and update running statistics
-- `get()`: Get current logged data with statistics
-- `reset()`: Clear current log
-- `reset_stats()`: Clear running statistics
-
-#### CompositeLogger
-- `log(**kwargs)`: Log to base logger
-- `log_stats(**kwargs)`: Log with statistics tracking
-- `handle_all(**kwargs)`: Send data to all handlers
-
-### Handlers
-
-#### PrintLoggerHandler
-- Formats and prints logged data by category
-- `handle(logger, **kwargs)`: Process and print data
-
-#### WandbLoggerHandler  
-- Logs data to Weights & Biases
-- Categories are logged as "category/key" for dashboard organization
-- `handle(logger, step=None, **kwargs)`: Log to wandb
 
 ## Requirements
 
@@ -147,11 +138,3 @@ print(f"Mean: {stat.mean}, Std: {stat.std}")
 ### Optional Dependencies
 - numpy >= 1.19.0 (for enhanced WelfordRunningStat support)
 - wandb >= 0.12.0 (for WandbLoggerHandler)
-
-## Contributing
-
-Contributions are welcome! Please feel free to submit a Pull Request.
-
-## License
-
-This project is licensed under the MIT License - see the LICENSE file for details.
