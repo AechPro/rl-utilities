@@ -1,6 +1,6 @@
 # RL Utilities
 
-A collection of utilities for my reinforcement learning projects, providing logging, statistics tracking, neural network modules, and more.
+A collection of utilities for my reinforcement learning projects.
 
 ## Features
 
