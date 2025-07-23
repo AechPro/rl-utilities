@@ -18,6 +18,7 @@ A collection of utilities for my reinforcement learning projects, providing logg
 - **QuantileHead**: Quantile head for quantile regression
 - **FocalLoss**: Implementation of focal loss for imbalanced categorical datasets
 - **QuantileLoss**: Loss function for quantile regression
+- **QuantileDistribution**: A torch Distribution object for representing and sampling from learned quantile distributions. Uses approximations of log-probabilities and entropy.
 
 ### **Neural Network Factories**
 - **build_ffnn_model**: Factory function for creating feedforward neural networks
@@ -87,7 +88,7 @@ logger.handle_all()
 
 ```python
 import torch
-from rl_utilities.torch_modules import GaussianHead, QuantileHead
+from rl_utilities.torch_modules import GaussianHead, QuantileHead, QuantileDistribution, QuantileLoss
 
 # Gaussian distribution head
 gaussian_head = GaussianHead(input_dim=64, output_dim=2)
@@ -96,6 +97,24 @@ mean, std = gaussian_head(torch.randn(32, 64))
 # Quantile distribution head
 quantile_head = QuantileHead(input_dim=64, output_dim=1, num_quantiles=51)
 quantiles = quantile_head(torch.randn(32, 64))
+
+# Learn quantiles using the QuantileLoss object:
+quantile_loss = QuantileLoss()
+loss = quantile_loss(quantiles, torch.randn(32, 1))
+loss.backward()
+# ... backpropagate as usual ...
+
+# Quantile distribution object
+quantile_dist = QuantileDistribution(quantiles)
+
+# Sample from distribution
+sample = quantile_dist.sample()
+
+# Get log-probabilities
+log_prob = quantile_dist.log_prob(sample)
+
+# Get entropy
+entropy = quantile_dist.entropy()
 ```
 
 ### Running Statistics
