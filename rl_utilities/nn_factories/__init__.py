@@ -1,0 +1,1 @@
+from .ffnn_factory import build_ffnn_model

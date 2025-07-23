@@ -1,0 +1,10 @@
+include README.md
+include LICENSE
+include pyproject.toml
+recursive-include rl_utilities *.py
+recursive-exclude rl_utilities __pycache__
+recursive-exclude rl_utilities *.pyc
+recursive-exclude rl_utilities *.pyo
+recursive-exclude tests __pycache__
+recursive-exclude tests *.pyc
+recursive-exclude tests *.pyo
