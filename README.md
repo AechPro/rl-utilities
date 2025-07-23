@@ -1,30 +1,29 @@
 # RL Utilities
 
-A flexible collection of utilities for reinforcement learning projects, providing logging, statistics tracking, neural network modules, and more.
+A collection of utilities for my reinforcement learning projects, providing logging, statistics tracking, neural network modules, and more.
 
 ## Features
 
-### 🎯 **Flexible Logging System**
+### **Flexible Logging System**
 - **RLDataLogger**: Core logger for tracking values and running statistics
-- **CompositeLogger**: Multi-sink logging (print, wandb, etc.) with a single interface
-- **Handlers**: Pluggable output handlers for different destinations
-- **Categories**: Organize logged data into user-defined categories
+- **Handlers**: Pluggable output handlers for different logging destinations (print, wandb, etc.). Allows for user-defined categories to format output.
+- **CompositeLogger**: Allows composition of multiple handlers to e.g. both print to console and log to wandb.
 
-### 📊 **Statistical Utilities**
-- **WelfordRunningStat**: Robust online statistics computation supporting various data types (tensors, arrays, lists)
-- **RollingTensor**: Efficient rolling window operations for PyTorch tensors
+### **Statistical Utilities**
+- **WelfordRunningStat**: Online statistics computation supporting various data types (tensors, arrays, lists)
+- **RollingTensor**: Maintains a rolling stack of tensors with a fixed shape. Useful for things like frame stacking in Atari.
 
-### 🧠 **Neural Network Components**
-- **GaussianHead**: Neural network head for Gaussian distributions
-- **QuantileHead**: Quantile-based distribution heads
-- **FocalLoss**: Implementation of focal loss for imbalanced datasets
-- **QuantileLoss**: Loss functions for quantile regression
+### **Neural Network Components**
+- **GaussianHead**: Gaussian head for learning gaussian distributions
+- **QuantileHead**: Quantile head for quantile regression
+- **FocalLoss**: Implementation of focal loss for imbalanced categorical datasets
+- **QuantileLoss**: Loss function for quantile regression
 
-### 🏭 **Neural Network Factories**
+### **Neural Network Factories**
 - **build_ffnn_model**: Factory function for creating feedforward neural networks
 
-### 🔧 **Core Utilities**
-- **AffineMap**: Learnable affine transformations
+### **Core Utilities**
+- **AffineMap**: Fixed affine transformation module, useful for transforming variances in gaussian distributions to a positive interval.
 
 ## Installation
 
