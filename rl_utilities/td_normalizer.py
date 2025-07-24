@@ -1,4 +1,4 @@
-from rl_utilities import WelfordRunningStat
+from rl_utilities.running_stats import WelfordRunningStat
 import numpy as np
 import torch
 

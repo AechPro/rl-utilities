@@ -69,8 +69,8 @@ class CompositeLogger:
     def log(self, **kwargs: Any) -> None:
         self.base_logger.log(**kwargs)
 
-    def log_stats(self, **kwargs: Any) -> None:
-        self.base_logger.log_stats(**kwargs)
+    def log_stats(self, stats_type: Optional[str] = None, **kwargs: Any) -> None:
+        self.base_logger.log_stats(stats_type, **kwargs)
 
     def reset(self) -> None:
         self.base_logger.reset()

@@ -14,7 +14,7 @@ from rl_utilities.running_stats import RunningStatistics
 
 class ExponentialMovingAverage(RunningStatistics):
     
-    def __init__(self, shape: Union[Tuple[int, ...], int], backend: str = RunningStatistics.PYTHON_BACKEND, alpha: float = 0.1) -> None:
+    def __init__(self, shape: Union[Tuple[int, ...], int], backend: str = RunningStatistics.PYTHON_BACKEND, alpha: float = 0.01) -> None:
         """
         Initialize exponential moving average tracker.
         
