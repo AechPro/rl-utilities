@@ -4,7 +4,7 @@ A collection of utilities for my reinforcement learning projects.
 
 ## Features
 
-### **Flexible Logging System**
+### **Logging System**
 - **RLDataLogger**: Core logger for tracking values and running statistics
 - **Handlers**: Pluggable output handlers for different logging destinations (print, wandb, etc.). Allows for user-defined categories to format output.
 - **CompositeLogger**: Allows composition of multiple handlers to e.g. both print to console and log to wandb.
@@ -12,6 +12,8 @@ A collection of utilities for my reinforcement learning projects.
 ### **Miscellaneous Utilities**
 - **WelfordRunningStat**: Online statistics computation for data. Instantiate with a shape and backend ("torch", "numpy", or "python").
 - **RollingTensor**: Maintains a rolling stack of tensors with a fixed shape. Useful for things like frame stacking in Atari.
+- **squish_functions**: A few squishing functions and their inverses. Useful for reducing the scale of learning targets.
+- **TDNormalizer**: Online TD error normalizer from [AVG](https://github.com/gauthamvasan/avg).
 
 ### **Neural Network Components**
 - **GaussianHead**: Gaussian head for learning gaussian distributions
