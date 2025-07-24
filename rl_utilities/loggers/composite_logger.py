@@ -15,13 +15,19 @@ class PrintLoggerHandler(LoggerHandler):
         printed_keys = set()
         if self.categories:
             for cat, keys in self.categories.items():
-                cat_items = [(k, data[k]) for k in keys if k in data]
+                cat_items = []
+                matched_keys = set()
+                for base_key in keys:
+                    for k in data:
+                        if k == base_key or k.startswith(base_key + "_"):
+                            cat_items.append((k, data[k]))
+                            matched_keys.add(k)
                 if cat_items:
                     print(f"=== {cat} ===")
                     for k, v in cat_items:
                         print(f"{k:20}: {v}")
                     print()
-                    printed_keys.update(keys)
+                    printed_keys.update(matched_keys)
         uncategorized = [(k, v) for k, v in data.items() if k not in printed_keys]
         if uncategorized:
             print("=== Uncategorized ===")
