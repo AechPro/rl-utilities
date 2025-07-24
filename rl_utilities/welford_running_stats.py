@@ -142,6 +142,9 @@ class WelfordRunningStat(object):
         else:
             return self.running_variance / (self.count - 1)
 
+    def standardize(self, x):
+        return (x - self.mean) / self.std
+
     def to_json(self) -> Dict[str, Any]:
         if self._backend == WelfordRunningStat.NUMPY_BACKEND:
             return {"mean":self.running_mean.ravel().tolist(),
