@@ -39,13 +39,11 @@ def build_ffnn_model(n_input_features: int,
     for i in range(len(in_widths)):
         layers.append(nn.Linear(in_widths[i], out_widths[i]))
         if use_layer_norm:
-            layers.append(nn.LayerNorm(out_widths[i]))
+            if i != len(in_widths) - 1 or (i == len(in_widths) - 1 and apply_layer_norm_final_layer):
+                layers.append(nn.LayerNorm(out_widths[i]))
         if i != len(in_widths) - 1:
             layers.append(act_fn_callable())
 
-    if use_layer_norm and apply_layer_norm_final_layer:
-        layers.append(nn.LayerNorm(out_widths[-1]))
-    
     if output_act_fn_callable is not None:
         if output_act_fn_callable == torch.nn.Softmax:
             layers.append(output_act_fn_callable(dim=-1))
