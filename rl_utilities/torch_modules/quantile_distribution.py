@@ -4,7 +4,6 @@ from typing import Tuple
 
 class QuantileDistribution(Distribution):
     def __init__(self, quantile_values: torch.Tensor, tau: torch.Tensor) -> None:
-        self.arg_constraints = {}
         super().__init__()
         self.quantile_values = quantile_values  
         self.tau = tau  
@@ -29,7 +28,7 @@ class QuantileDistribution(Distribution):
 
         return log_prob
 
-    def sample(self, sample_shape: torch.Size = torch.Size()) -> torch.Tensor:
+    def sample(self, sample_shape: torch.Size = torch.Size((1, ))) -> torch.Tensor:
         n_quantiles = self.quantile_values.shape[-2]
         flat_shape = self.quantile_values.shape[:-2] + sample_shape
 
