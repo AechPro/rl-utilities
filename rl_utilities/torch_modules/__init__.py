@@ -5,3 +5,4 @@ from .quantile_distribution import QuantileDistribution
 from .quantile_loss import QuantileLoss
 from .asgd import ASGD
 from .lyam import LyAm
+from .gated_linear_unit import GLU

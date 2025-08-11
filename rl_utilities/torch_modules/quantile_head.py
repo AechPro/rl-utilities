@@ -55,13 +55,3 @@ class QuantileHead(nn.Module):
         x = self.activation(x)
         quantile_values = self.out_fc(x)
         return quantile_values
-
-
-    
-
-    def sample_from_quantiles(self, quantiles: torch.Tensor) -> torch.Tensor:
-        """Randomly sample from the quantile outputs."""
-        batch_size = quantiles.size(0)
-        random_indices = torch.randint(0, self.n_quantiles, (batch_size,), device=quantiles.device)
-        sampled_values = quantiles[range(batch_size), random_indices, :]
-        return sampled_values
