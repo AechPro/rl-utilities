@@ -2,13 +2,13 @@ import torch
 import torch.nn as nn 
 
 class GLU(nn.Module):
-    def __init__(self, input_dim: int, hidden_dim: int, activation: nn.Module = nn.SiLU(), use_layer_norm=True) -> None:
+    def __init__(self, input_dim: int, hidden_dim: int, activation: nn.Module = nn.Sigmoid(), use_layer_norm=True) -> None:
         super().__init__()
         self.layer_norm = None
         if use_layer_norm:
             self.layer_norm = nn.LayerNorm(normalized_shape=(hidden_dim,))
-        self.fc1 = nn.Linear(input_dim, hidden_dim, bias=False)
-        self.fc2 = nn.Linear(input_dim, hidden_dim, bias=False)
+        self.fc1 = nn.Linear(input_dim, hidden_dim)
+        self.fc2 = nn.Linear(input_dim, hidden_dim)
         self.activation = activation
     
     def forward(self, x: torch.Tensor) -> torch.Tensor:

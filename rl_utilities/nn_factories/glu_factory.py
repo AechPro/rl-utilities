@@ -39,8 +39,6 @@ def build_glu_model(n_input_features: int,
 
     for i in range(len(in_widths)):
         layers.append(GLU(in_widths[i], out_widths[i], act_fn_callable(), use_layer_norm))
-        if i != len(in_widths) - 1:
-            layers.append(act_fn_callable())
 
     if apply_layer_norm_final_layer and use_layer_norm:
         layers.append(nn.LayerNorm(out_widths[-1]))
