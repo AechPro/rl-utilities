@@ -8,7 +8,7 @@ def build_glu_model(n_input_features: int,
                      layer_widths: List[int],
                      use_layer_norm: bool,
                      apply_layer_norm_final_layer: bool = False,
-                     act_fn_callable: nn.Module = nn.SiLU,
+                     act_fn_callable: nn.Module = nn.Sigmoid,
                      output_act_fn_callable: Optional[nn.Module] = None,
                      device: Union[str, torch.device] = "cpu") -> nn.Module:
 

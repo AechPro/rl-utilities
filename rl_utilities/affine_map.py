@@ -4,7 +4,7 @@ from typing import Tuple, Optional
 
 class AffineMap(nn.Module):
     """
-    Utility torch module for affine mapping from one range to another.
+    Utility torch module for mapping from one range to another.
     """
     def __init__(self, from_range: Tuple[float, float] = (-1, 1), to_range: Tuple[float, float] = (0.1, 1)) -> None:
         super().__init__()
